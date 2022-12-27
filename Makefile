@@ -6,7 +6,7 @@
 #    By: smessal <smessal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/22 12:49:49 by smessal           #+#    #+#              #
-#    Updated: 2022/12/22 12:51:21 by smessal          ###   ########.fr        #
+#    Updated: 2022/12/27 03:55:48 by smessal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RM = rm -rf
 
 CFLAGS = -Wall -Wextra -Werror -g -I./includes
 
-NAME = philosophers
+NAME = philo
 all	:	$(NAME)
 $(NAME):	$(OBJ)
 			$(CC) $(CFLAGS) $(OBJ) -o  $(NAME) -pthread
