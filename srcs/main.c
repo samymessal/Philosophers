@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/10 17:48:33 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/10 19:11:24 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,36 @@ void    *start(void *arg)
 	int		index;
 
 	data = (t_data *)arg;
+	// pthread_mutex_lock(&data->mut_ind);
 	test = data->mutex;
-	pthread_mutex_lock(&data->mut_ind);
     index = data->index;
-	if (index == data->num_philo - 1)
+	while (1)
 	{
 		pthread_mutex_lock(&test[index].mutex);
-		pthread_mutex_lock(&test[0].mutex);
-		printf("%d takes fork\n", test[index].index);
-		printf("%d is eating\n", test[index].index);
-		usleep(5);
-		printf("%d is sleeping\n", test[index].index);
-		usleep(3);
+		if (index == data->num_philo - 1)
+		{
+			pthread_mutex_lock(&test[0].mutex);
+			printf("%d takes fork\n", test[index].index);
+			printf("%d is eating\n", test[index].index);
+			usleep(5);
+			printf("%d is sleeping\n", test[index].index);
+			usleep(3);
+			pthread_mutex_unlock(&test[index].mutex);
+			pthread_mutex_unlock(&test[0].mutex);
+		}
+		else
+		{
+			pthread_mutex_lock(&test[index + 1].mutex);
+			printf("%d takes fork\n", test[index].index); 
+			printf("%d is eating\n", test[index].index);
+			usleep(5);
+			printf("%d is sleeping\n", test[index].index);
+			usleep(3);
+			pthread_mutex_unlock(&test[index + 1].mutex);
+		}
 		pthread_mutex_unlock(&test[index].mutex);
-		pthread_mutex_unlock(&test[0].mutex);
 	}
-	else
-	{
-		pthread_mutex_lock(&test[index].mutex);
-		pthread_mutex_lock(&test[index + 1].mutex);
-		printf("%d takes fork\n", test[index].index); 
-		printf("%d is eating\n", test[index].index);
-		usleep(5);
-		printf("%d is sleeping\n", test[index].index);
-		usleep(3);
-		pthread_mutex_unlock(&test[index].mutex);
-		pthread_mutex_unlock(&test[index + 1].mutex);
-	}
-	pthread_mutex_unlock(&data->mut_ind);
+	// pthread_mutex_unlock(&data->mut_ind);
     return (NULL);
 }
 
@@ -104,15 +106,38 @@ int main(int ac, char **av)
     i = 0;
     while (i < num_philo)
     {
-        data.index = i;
-		pthread_create(&philosophers[i], NULL, &start, &data);
-        i++;
+        if (i % 2 == 0)
+		{
+			data.index = i;
+			pthread_create(&philosophers[i], NULL, &start, &data);
+		}
+		i++;
+    }
+	i = 0;
+	while (i < num_philo)
+    {
+        if (i % 2 == 0)
+			pthread_join(philosophers[i], NULL);
+		i++;
+    }
+	i = 0;
+	while (i < num_philo)
+    {
+        if (i % 2 != 0)
+		{
+			data.index = i;
+			pthread_create(&philosophers[i], NULL, &start, &data);
+		}
+		i++;
     }
     i = 0;
     while (i < num_philo)
     {
-        pthread_join(philosophers[i], NULL);
-        i++;
+        if (i % 2 != 0)
+		{
+			pthread_join(philosophers[i], NULL);
+		}
+		i++;
     }
     return (0);
 }
