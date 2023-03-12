@@ -6,59 +6,19 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/10 19:11:24 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/12 15:15:58 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    *start(void *arg)
-{
-    t_thread *test;
-	t_data	*data;
-	int		index;
-
-	data = (t_data *)arg;
-	// pthread_mutex_lock(&data->mut_ind);
-	test = data->mutex;
-    index = data->index;
-	while (1)
-	{
-		pthread_mutex_lock(&test[index].mutex);
-		if (index == data->num_philo - 1)
-		{
-			pthread_mutex_lock(&test[0].mutex);
-			printf("%d takes fork\n", test[index].index);
-			printf("%d is eating\n", test[index].index);
-			usleep(5);
-			printf("%d is sleeping\n", test[index].index);
-			usleep(3);
-			pthread_mutex_unlock(&test[index].mutex);
-			pthread_mutex_unlock(&test[0].mutex);
-		}
-		else
-		{
-			pthread_mutex_lock(&test[index + 1].mutex);
-			printf("%d takes fork\n", test[index].index); 
-			printf("%d is eating\n", test[index].index);
-			usleep(5);
-			printf("%d is sleeping\n", test[index].index);
-			usleep(3);
-			pthread_mutex_unlock(&test[index + 1].mutex);
-		}
-		pthread_mutex_unlock(&test[index].mutex);
-	}
-	// pthread_mutex_unlock(&data->mut_ind);
-    return (NULL);
-}
-
-t_thread	*init_mutex(char **av)
+t_philo	*init_mutex(char **av)
 {
     int         i;
-    t_thread    *temp;
+    t_philo    *temp;
 
     i = 0;
-    temp = malloc(sizeof(t_thread) * ft_atoi(av[1]));
+    temp = malloc(sizeof(t_philo) * ft_atoi(av[1]));
     if (!temp)
         return (NULL);
     while (i < ft_atoi(av[1]))
@@ -71,7 +31,7 @@ t_thread	*init_mutex(char **av)
 	return (temp);
 }
 
-t_data	init_data(t_thread *mutex, char **av)
+t_data	init_data(t_philo *mutex, char **av)
 {
 	t_data	data;
 
@@ -81,6 +41,9 @@ t_data	init_data(t_thread *mutex, char **av)
 	data.index = 0;
 	data.num_philo = 0;
 	data.num_philo = ft_atoi(av[1]);
+	data.t_die = ft_atoi(av[2]);
+	data.t_eat = ft_atoi(av[3]);
+	data.t_sleep = ft_atoi(av[4]);
 	data.mutex = NULL;
 	pthread_mutex_init(&data.mut_ind, NULL);
 	data.mutex = mutex;
@@ -95,7 +58,7 @@ int main(int ac, char **av)
     int         i;
     pthread_t   *philosophers;
 	t_data		data;
-    t_thread    *mutex;
+    t_philo    *mutex;
 
     num_philo = ft_atoi(av[1]);
     mutex = init_mutex(av);
@@ -106,37 +69,18 @@ int main(int ac, char **av)
     i = 0;
     while (i < num_philo)
     {
-        if (i % 2 == 0)
-		{
-			data.index = i;
-			pthread_create(&philosophers[i], NULL, &start, &data);
-		}
-		i++;
-    }
-	i = 0;
-	while (i < num_philo)
-    {
-        if (i % 2 == 0)
-			pthread_join(philosophers[i], NULL);
-		i++;
-    }
-	i = 0;
-	while (i < num_philo)
-    {
-        if (i % 2 != 0)
-		{
-			data.index = i;
-			pthread_create(&philosophers[i], NULL, &start, &data);
-		}
+		data.index = i;
+		if (i % 2 == 0)
+			pthread_create(&philosophers[i], NULL, &start_pair, &data);
+		else
+			pthread_create(&philosophers[i], NULL, &start_impair, &data);
+		usleep(5);
 		i++;
     }
     i = 0;
     while (i < num_philo)
     {
-        if (i % 2 != 0)
-		{
-			pthread_join(philosophers[i], NULL);
-		}
+		pthread_join(philosophers[i], NULL);
 		i++;
     }
     return (0);

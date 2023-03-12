@@ -5,27 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 12:51:35 by smessal           #+#    #+#             */
-/*   Updated: 2022/12/27 01:07:46 by smessal          ###   ########.fr       */
+/*   Created: 2023/03/12 15:45:55 by smessal           #+#    #+#             */
+/*   Updated: 2023/03/12 16:07:59 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philo.h"
 
-void*   func_thread()
+int main(int ac, char **av)
 {
-    printf("Coco\n");
-    sleep(2);
-    return (NULL);
-}
-
-int main(void)
-{
-    pthread_t   t1;
-    pthread_t   t2;
-
-    pthread_create(&t1, NULL, &func_thread, NULL);
-    pthread_join(t1, NULL);
-    pthread_create(&t2, NULL, &func_thread, NULL);
-    pthread_join(t2, NULL);
+    struct timeval lol;
+    gettimeofday(&lol, NULL);
+    printf("time: %ld\n", lol.tv_sec);
+    usleep(1000000);
+    gettimeofday(&lol, NULL);
+    printf("time: %ld\n", lol.tv_sec);
+    return (0);
 }
