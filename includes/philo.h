@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/12 15:45:00 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:29:23 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ typedef struct s_data
 /*---------------------ROUTINE-----------------------------------------------*/
 void    *start_impair(void *arg);
 void    *start_pair(void *arg);
+void	*start_checker(void *arg);
 /*---------------------ACTIONS-----------------------------------------------*/
 void    tfork(t_philo philo);
 void    eat(t_philo philo);
 void    sleeping(t_philo philo);
 void    thinking(t_philo philo);
+/*----------------------CHECKER----------------------------------------------*/
+int philo_ate(void);
+int	calc_eat(struct timeval time, int ate);
+int	dies(t_data *data);
 /*---------------------UTILS-------------------------------------------------*/
 
 int		ft_atoi(const char *nptr);

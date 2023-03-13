@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/12 15:15:58 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:36:03 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_data	init_data(t_philo *mutex, char **av)
 	data.index = 0;
 	data.num_philo = 0;
 	data.num_philo = ft_atoi(av[1]);
-	data.t_die = ft_atoi(av[2]);
-	data.t_eat = ft_atoi(av[3]);
-	data.t_sleep = ft_atoi(av[4]);
+	data.t_die = ft_atoi(av[2]) * 1000;
+	data.t_eat = ft_atoi(av[3]) * 1000;
+	data.t_sleep = ft_atoi(av[4]) * 1000;
 	data.mutex = NULL;
 	pthread_mutex_init(&data.mut_ind, NULL);
 	data.mutex = mutex;
@@ -52,11 +52,12 @@ t_data	init_data(t_philo *mutex, char **av)
 
 int main(int ac, char **av)
 {
-    if (ac > 5)
+    if (ac != 5)
         return (0);
     int         num_philo;
     int         i;
     pthread_t   *philosophers;
+	// pthread_t	checker;
 	t_data		data;
     t_philo    *mutex;
 
@@ -70,11 +71,11 @@ int main(int ac, char **av)
     while (i < num_philo)
     {
 		data.index = i;
-		if (i % 2 == 0)
+		// if (i % 2 == 0)
 			pthread_create(&philosophers[i], NULL, &start_pair, &data);
-		else
-			pthread_create(&philosophers[i], NULL, &start_impair, &data);
-		usleep(5);
+		// else
+		// 	pthread_create(&philosophers[i], NULL, &start_impair, &data);
+		usleep(10);
 		i++;
     }
     i = 0;
@@ -83,5 +84,7 @@ int main(int ac, char **av)
 		pthread_join(philosophers[i], NULL);
 		i++;
     }
+	// pthread_create(&checker, NULL, &start_checker, &data);
+	// pthread_join(checker, NULL);
     return (0);
 }
