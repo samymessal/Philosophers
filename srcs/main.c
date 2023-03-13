@@ -6,47 +6,39 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 17:36:03 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:21:13 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	*init_mutex(char **av)
+t_philo	*init_philo(char **av, t_data *data)
 {
     int         i;
-    t_philo    *temp;
+    t_philo    *philo;
 
-    i = 0;
-    temp = malloc(sizeof(t_philo) * ft_atoi(av[1]));
-    if (!temp)
+    philo = lst_new(av, 0, data);
+    if (!philo)
         return (NULL);
+    i = 1;
     while (i < ft_atoi(av[1]))
     {
-        temp[i].index = i;
-        temp[i].val_c = ft_itoa(i);
-        pthread_mutex_init(&temp[i].mutex, NULL);
+        lst_addback(&philo, lst_new(av, i, data));
         i++;
     }
-	return (temp);
+	return (philo);
 }
 
-t_data	init_data(t_philo *mutex, char **av)
+t_data	*init_data(void)
 {
-	t_data	data;
+	t_data	*data;
 
-	// data = malloc(sizeof(t_data));
-	// if (!data)
-	// 	return (NULL);
-	data.index = 0;
-	data.num_philo = 0;
-	data.num_philo = ft_atoi(av[1]);
-	data.t_die = ft_atoi(av[2]) * 1000;
-	data.t_eat = ft_atoi(av[3]) * 1000;
-	data.t_sleep = ft_atoi(av[4]) * 1000;
-	data.mutex = NULL;
-	pthread_mutex_init(&data.mut_ind, NULL);
-	data.mutex = mutex;
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->philo = NULL;
+	pthread_mutex_init(&data->mut_print, NULL);
+	pthread_mutex_init(&data->mut_ate, NULL);
 	return (data);	
 }
 
@@ -57,25 +49,22 @@ int main(int ac, char **av)
     int         num_philo;
     int         i;
     pthread_t   *philosophers;
-	// pthread_t	checker;
-	t_data		data;
-    t_philo    *mutex;
+	pthread_t	checker;
+	t_data		*data;
+    t_philo		*philo;
 
     num_philo = ft_atoi(av[1]);
-    mutex = init_mutex(av);
-	data = init_data(mutex, av);
+	data = init_data();
+    philo = init_philo(av, data);
+	data->philo = philo;
     philosophers = malloc(sizeof(pthread_t) * num_philo);
     if (!philosophers)
         return (1);
     i = 0;
-    while (i < num_philo)
+    while (i < num_philo && philo)
     {
-		data.index = i;
-		// if (i % 2 == 0)
-			pthread_create(&philosophers[i], NULL, &start_pair, &data);
-		// else
-		// 	pthread_create(&philosophers[i], NULL, &start_impair, &data);
-		usleep(10);
+		pthread_create(&philosophers[i], NULL, &start_pair, &(*philo));
+        philo = philo->next;
 		i++;
     }
     i = 0;
@@ -84,7 +73,7 @@ int main(int ac, char **av)
 		pthread_join(philosophers[i], NULL);
 		i++;
     }
-	// pthread_create(&checker, NULL, &start_checker, &data);
-	// pthread_join(checker, NULL);
+	pthread_create(&checker, NULL, &start_checker, &(*data));
+	pthread_join(checker, NULL);
     return (0);
 }

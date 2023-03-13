@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 17:36:44 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:20:00 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,44 @@
 
 void    *start_pair(void *arg)
 {
-    t_philo *test;
-	t_data	*data;
-	int		index;
+    t_philo *philo;
+	t_philo	*last;
+	t_philo	*prev;
 
-	data = (t_data *)arg;
-    index = data->index;
-	test = data->mutex;
-    while (1)
+	philo = (t_philo *)arg;
+    last = lst_last(philo);
+	prev = philo->prev;
+	if (philo->index % 2 != 0)
+		usleep(100);
+	while (1)
 	{
-		pthread_mutex_lock(&test[index].mutex);
-		tfork(test[index]);
-		if (index == 0)
+		pthread_mutex_lock(&philo->mutex);
+		tfork(philo);
+		if (philo->index == 0)
 		{
-			pthread_mutex_lock(&test[data->num_philo - 1].mutex);
-			tfork(test[index]);
-            eat(test[index]);
-            usleep(data->t_eat);
-			test[index].ate = philo_ate();
-			pthread_mutex_unlock(&test[data->num_philo - 1].mutex);
-		    pthread_mutex_unlock(&test[index].mutex);
-            sleeping(test[index]);
-            usleep(data->t_sleep);
+			pthread_mutex_lock(&last->mutex);
+			tfork(philo);
+            eat(philo);
+            usleep(philo->t_eat);
+			philo->ate = philo_ate();
+			pthread_mutex_unlock(&last->mutex);
+		    pthread_mutex_unlock(&philo->mutex);
+            sleeping(philo);
+            usleep(philo->t_sleep);
 		}
 		else
 		{
-			pthread_mutex_lock(&test[index - 1].mutex);
-			tfork(test[index]);
-            eat(test[index]);
-            usleep(data->t_eat);
-			test[index].ate = philo_ate();
-			pthread_mutex_unlock(&test[index - 1].mutex);
-		    pthread_mutex_unlock(&test[index].mutex);
-            sleeping(test[index]);
-            usleep(data->t_sleep);
+			pthread_mutex_lock(&prev->mutex);
+			tfork(philo);
+            eat(philo);
+            usleep(philo->t_eat);
+			philo->ate = philo_ate();
+			pthread_mutex_unlock(&prev->mutex);
+		    pthread_mutex_unlock(&philo->mutex);
+            sleeping(philo);
+            usleep(philo->t_sleep);
 		}
-        thinking(test[index]);
+        thinking(philo);
 	}
     return (NULL);
 }

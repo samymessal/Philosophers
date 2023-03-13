@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:39:50 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 17:27:49 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:18:47 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	calc_eat(struct timeval time, int ate)
 
 int	dies(t_data *data)
 {
-	int				i;
 	t_philo			*philo;
 	struct timeval	time;
 
-	i = 0;
-	philo = data->mutex;
-	while (philo && philo[i].ate)
+	philo = data->philo;
+	while (1 && philo)
 	{
 		gettimeofday(&time, NULL);
-		if (calc_eat(time, philo[i].ate) >= data->t_die)
+		if (calc_eat(time, philo->ate) >= philo->t_die)
 			return (1);
-		i++;
+        philo = philo->next;
+        if (!philo)
+            philo = data->philo;
 	}
 	return (0);
 }

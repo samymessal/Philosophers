@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 17:29:23 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:09:31 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,21 @@ typedef struct s_thread
     char    *val_c;
 	int		ate;
 	int		died;
+	int		num_philo;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
     pthread_mutex_t mutex;
+	struct s_data	*data;
+	void	*next;
+	void	*prev;
 }               t_philo;
 
 typedef struct s_data
 {
-	int			index;
-	int			num_philo;
-	int			t_die;
-	int			t_eat;
-	int			t_sleep;
-	pthread_mutex_t	mut_ind;
-	t_philo	*mutex;
+	pthread_mutex_t	mut_print;
+	pthread_mutex_t	mut_ate;
+	t_philo			*philo;
 }				t_data;
 
 /*---------------------ROUTINE-----------------------------------------------*/
@@ -47,10 +50,10 @@ void    *start_impair(void *arg);
 void    *start_pair(void *arg);
 void	*start_checker(void *arg);
 /*---------------------ACTIONS-----------------------------------------------*/
-void    tfork(t_philo philo);
-void    eat(t_philo philo);
-void    sleeping(t_philo philo);
-void    thinking(t_philo philo);
+void    tfork(t_philo *philo);
+void    eat(t_philo *philo);
+void    sleeping(t_philo *philo);
+void    thinking(t_philo *philo);
 /*----------------------CHECKER----------------------------------------------*/
 int philo_ate(void);
 int	calc_eat(struct timeval time, int ate);
@@ -60,5 +63,9 @@ int	dies(t_data *data);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 void	ft_putstr_fd(char *s, int fd);
+/*---UTILS LIST---*/
+void    lst_addback(t_philo **philo, t_philo *new);
+t_philo	*lst_new(char **av, int i, t_data *data);
+t_philo	*lst_last(t_philo *philo);
 
 #endif
