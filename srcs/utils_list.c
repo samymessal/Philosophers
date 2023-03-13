@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 22:04:59 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 23:05:58 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:26:52 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_philo	*lst_new(char **av, int i, t_data *data)
 	philo->t_sleep = ft_atoi(av[4]) * 1000;
 	philo->data = data;
 	pthread_mutex_init(&philo->mutex, NULL);
+	pthread_mutex_init(&philo->mut_ate, NULL);
 	philo->next = NULL;
 	philo->prev = NULL;
 	return (philo);

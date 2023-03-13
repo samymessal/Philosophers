@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 23:20:00 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:43:52 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    *start_pair(void *arg)
     last = lst_last(philo);
 	prev = philo->prev;
 	if (philo->index % 2 != 0)
-		usleep(100);
+		usleep(600);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex);
@@ -33,7 +33,9 @@ void    *start_pair(void *arg)
 			tfork(philo);
             eat(philo);
             usleep(philo->t_eat);
+			pthread_mutex_lock(&philo->mut_ate);
 			philo->ate = philo_ate();
+			pthread_mutex_unlock(&philo->mut_ate);
 			pthread_mutex_unlock(&last->mutex);
 		    pthread_mutex_unlock(&philo->mutex);
             sleeping(philo);
@@ -45,7 +47,9 @@ void    *start_pair(void *arg)
 			tfork(philo);
             eat(philo);
             usleep(philo->t_eat);
+			pthread_mutex_lock(&philo->mut_ate);
 			philo->ate = philo_ate();
+			pthread_mutex_unlock(&philo->mut_ate);
 			pthread_mutex_unlock(&prev->mutex);
 		    pthread_mutex_unlock(&philo->mutex);
             sleeping(philo);
@@ -65,7 +69,9 @@ void	*start_checker(void *arg)
 	{
 		if (dies(data))
 		{
+			pthread_mutex_lock(&data->mut_print);
 			printf("a philo died\n");
+			pthread_mutex_unlock(&data->mut_print);
 			exit(0);
 		}
 	}

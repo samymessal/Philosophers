@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:39:50 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 23:18:47 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:28:11 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ int	dies(t_data *data)
 	while (1 && philo)
 	{
 		gettimeofday(&time, NULL);
+        pthread_mutex_lock(&philo->mut_ate);
 		if (calc_eat(time, philo->ate) >= philo->t_die)
+		{
+            pthread_mutex_unlock(&philo->mut_ate);
 			return (1);
+        }
+        pthread_mutex_unlock(&philo->mut_ate);
         philo = philo->next;
         if (!philo)
             philo = data->philo;
