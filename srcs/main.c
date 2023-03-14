@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 23:25:44 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/14 21:14:38 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int ac, char **av)
     int         num_philo;
     int         i;
     pthread_t   *philosophers;
-	pthread_t	checker;
+	// pthread_t	checker;
 	t_data		*data;
     t_philo		*philo;
 
@@ -67,13 +67,14 @@ int main(int ac, char **av)
         philo = philo->next;
 		i++;
     }
+	// pthread_create(&checker, NULL, &start_checker, &(*data));
     i = 0;
     while (i < num_philo)
     {
 		pthread_join(philosophers[i], NULL);
 		i++;
+		// if (i == num_philo)
+		// 	pthread_join(checker, NULL);
     }
-	pthread_create(&checker, NULL, &start_checker, &(*data));
-	pthread_join(checker, NULL);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/13 23:26:45 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/14 20:09:01 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_thread
 typedef struct s_data
 {
 	pthread_mutex_t	mut_print;
+	t_philo			*philo_died;
 	// pthread_mutex_t	mut_ate;
 	t_philo			*philo;
 }				t_data;
