@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:44:24 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/10 14:52:56 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/16 17:07:32 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ char	*ft_itoa(int n)
 	}
 	num[len - 1] = long_n + '0';
 	return (num);
+}
+
+time_t	timer(void)
+{
+	struct timeval	time;
+	time_t			current;
+
+	gettimeofday(&time, NULL);
+	current = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (current);
 }
 
 /*

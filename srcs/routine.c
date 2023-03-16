@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/14 21:20:04 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/16 17:58:37 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,30 @@ void    *start_pair(void *arg)
 		usleep(philo->t_eat / 2);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->mutex);
 		tfork(philo);
-		if (philo->index == 0)
+		if (philo->index == 1)
 		{
-			pthread_mutex_lock(&last->mutex);
+			locker(philo, last);
 			tfork(philo);
             eat(philo);
             usleep(philo->t_eat);
 			pthread_mutex_lock(&philo->mut_ate);
 			philo->ate = philo_ate();
 			pthread_mutex_unlock(&philo->mut_ate);
-		    pthread_mutex_unlock(&philo->mutex);
-			pthread_mutex_unlock(&last->mutex);
+			unlocker(philo, last);
             sleeping(philo);
             usleep(philo->t_sleep);
 		}
 		else
 		{
-			pthread_mutex_lock(&prev->mutex);
+			locker(philo, prev);
 			tfork(philo);
             eat(philo);
             usleep(philo->t_eat);
 			pthread_mutex_lock(&philo->mut_ate);
 			philo->ate = philo_ate();
 			pthread_mutex_unlock(&philo->mut_ate);
-			pthread_mutex_unlock(&prev->mutex);
-		    pthread_mutex_unlock(&philo->mutex);
+			unlocker(philo, prev);
             sleeping(philo);
             usleep(philo->t_sleep);
 		}
@@ -71,9 +68,9 @@ void	*start_checker(void *arg)
 		if (dies(data))
 		{
 			pthread_mutex_lock(&data->mut_print);
-			pthread_mutex_lock(&data->philo_died->mutex);
+			pthread_mutex_lock(&data->philo_died->fork1);
 			printf("%s died\n", data->philo_died->val_c);
-			pthread_mutex_unlock(&data->philo_died->mutex);
+			pthread_mutex_unlock(&data->philo_died->fork1);
 			pthread_mutex_unlock(&data->mut_print);
 			break ;
 		}

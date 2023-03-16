@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/14 20:09:01 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/16 17:58:10 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_thread
 	int		t_die;
 	int		t_eat;
 	int		t_sleep;
-    pthread_mutex_t mutex;
+    pthread_mutex_t fork1;
 	pthread_mutex_t	mut_ate;
 	struct s_data	*data;
 	void	*next;
@@ -65,9 +65,13 @@ int	dies(t_data *data);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 void	ft_putstr_fd(char *s, int fd);
+time_t	timer(void);
 /*---UTILS LIST---*/
 void    lst_addback(t_philo **philo, t_philo *new);
 t_philo	*lst_new(char **av, int i, t_data *data);
 t_philo	*lst_last(t_philo *philo);
+/*----UTILS MUTEX-------*/
+void	locker(t_philo *philo, t_philo *prev);
+void	unlocker(t_philo *philo, t_philo *prev);
 
 #endif
