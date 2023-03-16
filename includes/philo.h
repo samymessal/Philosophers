@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/16 17:58:10 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/16 18:29:08 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ typedef struct s_thread
 {
     int     index;
     char    *val_c;
-	int		ate;
+	time_t	ate;
 	int		died;
 	int		num_philo;
 	int		t_die;
 	int		t_eat;
 	int		t_sleep;
-    pthread_mutex_t fork1;
+    pthread_mutex_t fork;
 	pthread_mutex_t	mut_ate;
 	struct s_data	*data;
 	void	*next;
@@ -43,13 +43,13 @@ typedef struct s_data
 {
 	pthread_mutex_t	mut_print;
 	t_philo			*philo_died;
+	time_t			t_die;
 	// pthread_mutex_t	mut_ate;
 	t_philo			*philo;
 }				t_data;
 
 /*---------------------ROUTINE-----------------------------------------------*/
-void    *start_impair(void *arg);
-void    *start_pair(void *arg);
+void    *routine(void *arg);
 void	*start_checker(void *arg);
 /*---------------------ACTIONS-----------------------------------------------*/
 void    tfork(t_philo *philo);
@@ -73,5 +73,8 @@ t_philo	*lst_last(t_philo *philo);
 /*----UTILS MUTEX-------*/
 void	locker(t_philo *philo, t_philo *prev);
 void	unlocker(t_philo *philo, t_philo *prev);
+/*----UTILS ROUTINE-----*/
+void	first_philo(t_philo *philo, t_philo *last);
+void	other_philo(t_philo *philo, t_philo *prev);
 
 #endif

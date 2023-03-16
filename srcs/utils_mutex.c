@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:54:59 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/16 17:57:06 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/16 18:06:38 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	locker(t_philo *philo, t_philo *prev)
 {
 	if (philo->index % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->fork1);
-		pthread_mutex_lock(&prev->fork1);
+		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&prev->fork);
 	}
 	else
 	{
-		pthread_mutex_lock(&prev->fork1);
-		pthread_mutex_lock(&philo->fork1);
+		pthread_mutex_lock(&prev->fork);
+		pthread_mutex_lock(&philo->fork);
 	}
 }
 
@@ -30,12 +30,12 @@ void	unlocker(t_philo *philo, t_philo *prev)
 {
 	if (philo->index % 2 == 0)
 	{
-		pthread_mutex_unlock(&philo->fork1);
-		pthread_mutex_unlock(&prev->fork1);
+		pthread_mutex_unlock(&philo->fork);
+		pthread_mutex_unlock(&prev->fork);
 	}
 	else
 	{
-		pthread_mutex_unlock(&prev->fork1);
-		pthread_mutex_unlock(&philo->fork1);
+		pthread_mutex_unlock(&prev->fork);
+		pthread_mutex_unlock(&philo->fork);
 	}
 }
