@@ -1,64 +1,301 @@
 0 2 has taken a fork
 0 2 has taken a fork
 0 2 is eating
-101 1 has taken a fork
-200 2 is sleeping
-200 3 has taken a fork
-200 1 has taken a fork
-200 1 is eating
-401 2 is thinking
-432 3 has taken a fork
-432 3 is eating
-432 1 is sleeping
-632 3 is sleeping
-632 2 has taken a fork
-632 2 has taken a fork
-632 2 is eating
-632 1 is thinking
-632 1 has taken a fork
-833 2 is sleeping
-833 3 is thinking
-833 3 has taken a fork
-833 1 has taken a fork
-833 1 is eating
-1033 2 is thinking
-1033 1 is sleeping
-1033 3 has taken a fork
-1033 3 is eating
-1239 1 is thinking
-1239 3 is sleeping
-1239 2 has taken a fork
-1239 2 has taken a fork
-1239 2 is eating
-1239 1 has taken a fork
-1439 3 is thinking
-1439 2 is sleeping
-1439 1 has taken a fork
-1439 1 is eating
-1439 3 has taken a fork
-1639 2 is thinking
-1639 1 is sleeping
-1639 3 has taken a fork
-1639 3 is eating
-1839 3 is sleeping
-1839 2 has taken a fork
-1839 2 has taken a fork
-1839 2 is eating
-1839 1 is thinking
-1839 1 has taken a fork
-2041 3 is thinking
-2041 3 has taken a fork
-2041 2 is sleeping
-2041 1 has taken a fork
-2041 1 is eating
-2241 2 is thinking
-2241 1 is sleeping
-2241 3 has taken a fork
-2241 3 is eating
-2441 1 is thinking
-2442 3 is sleeping
-2442 1 has taken a fork
-2442 1 has taken a fork
-2442 1 is eating
-2442 2 has taken a fork
-2639 2 died
+0 6 has taken a fork
+0 6 has taken a fork
+0 6 is eating
+0 4 has taken a fork
+0 4 has taken a fork
+0 4 is eating
+0 8 has taken a fork
+0 8 has taken a fork
+0 8 is eating
+0 10 has taken a fork
+0 10 has taken a fork
+0 10 is eating
+0 12 has taken a fork
+0 12 has taken a fork
+0 12 is eating
+1 16 has taken a fork
+1 16 has taken a fork
+1 16 is eating
+1 18 has taken a fork
+1 18 has taken a fork
+1 18 is eating
+1 14 has taken a fork
+1 14 has taken a fork
+1 14 is eating
+8 20 has taken a fork
+8 20 has taken a fork
+8 20 is eating
+8 22 has taken a fork
+8 22 has taken a fork
+8 22 is eating
+8 24 has taken a fork
+8 24 has taken a fork
+8 24 is eating
+8 26 has taken a fork
+8 26 has taken a fork
+8 26 is eating
+8 28 has taken a fork
+8 28 has taken a fork
+8 28 is eating
+8 30 has taken a fork
+8 30 has taken a fork
+8 30 is eating
+8 32 has taken a fork
+8 32 has taken a fork
+8 32 is eating
+8 34 has taken a fork
+8 34 has taken a fork
+8 34 is eating
+8 36 has taken a fork
+8 36 has taken a fork
+8 36 is eating
+8 40 has taken a fork
+8 40 has taken a fork
+8 40 is eating
+8 38 has taken a fork
+8 38 has taken a fork
+8 38 is eating
+8 42 has taken a fork
+8 42 has taken a fork
+8 42 is eating
+8 46 has taken a fork
+8 46 has taken a fork
+8 46 is eating
+9 44 has taken a fork
+9 44 has taken a fork
+9 44 is eating
+9 50 has taken a fork
+9 50 has taken a fork
+9 50 is eating
+9 48 has taken a fork
+9 48 has taken a fork
+9 48 is eating
+9 54 has taken a fork
+9 54 has taken a fork
+9 54 is eating
+9 52 has taken a fork
+9 52 has taken a fork
+9 52 is eating
+9 58 has taken a fork
+9 58 has taken a fork
+9 58 is eating
+9 60 has taken a fork
+9 60 has taken a fork
+9 60 is eating
+9 56 has taken a fork
+9 56 has taken a fork
+9 56 is eating
+9 64 has taken a fork
+9 64 has taken a fork
+9 64 is eating
+9 66 has taken a fork
+9 66 has taken a fork
+9 66 is eating
+9 68 has taken a fork
+9 68 has taken a fork
+9 68 is eating
+10 114 has taken a fork
+10 114 has taken a fork
+10 114 is eating
+10 118 has taken a fork
+10 118 has taken a fork
+10 118 is eating
+10 120 has taken a fork
+10 120 has taken a fork
+10 120 is eating
+10 122 has taken a fork
+10 122 has taken a fork
+10 122 is eating
+10 124 has taken a fork
+10 124 has taken a fork
+10 124 is eating
+10 126 has taken a fork
+10 126 has taken a fork
+10 126 is eating
+10 130 has taken a fork
+10 130 has taken a fork
+10 130 is eating
+10 134 has taken a fork
+10 134 has taken a fork
+10 134 is eating
+10 136 has taken a fork
+10 136 has taken a fork
+10 136 is eating
+10 138 has taken a fork
+10 138 has taken a fork
+10 138 is eating
+10 142 has taken a fork
+10 142 has taken a fork
+10 142 is eating
+10 144 has taken a fork
+10 144 has taken a fork
+10 144 is eating
+10 146 has taken a fork
+10 146 has taken a fork
+10 146 is eating
+10 148 has taken a fork
+10 148 has taken a fork
+10 148 is eating
+10 150 has taken a fork
+10 150 has taken a fork
+10 150 is eating
+10 152 has taken a fork
+10 152 has taken a fork
+10 152 is eating
+10 62 has taken a fork
+10 62 has taken a fork
+10 62 is eating
+10 160 has taken a fork
+10 160 has taken a fork
+10 160 is eating
+10 162 has taken a fork
+10 162 has taken a fork
+10 162 is eating
+10 166 has taken a fork
+10 166 has taken a fork
+10 166 is eating
+10 172 has taken a fork
+10 172 has taken a fork
+10 172 is eating
+11 174 has taken a fork
+11 174 has taken a fork
+11 174 is eating
+11 176 has taken a fork
+11 176 has taken a fork
+11 176 is eating
+11 184 has taken a fork
+11 184 has taken a fork
+11 184 is eating
+11 192 has taken a fork
+11 192 has taken a fork
+11 192 is eating
+11 196 has taken a fork
+11 196 has taken a fork
+11 196 is eating
+11 198 has taken a fork
+11 198 has taken a fork
+11 198 is eating
+11 200 has taken a fork
+11 200 has taken a fork
+11 200 is eating
+12 186 has taken a fork
+12 186 has taken a fork
+12 186 is eating
+12 188 has taken a fork
+12 188 has taken a fork
+12 188 is eating
+12 190 has taken a fork
+12 190 has taken a fork
+12 190 is eating
+12 194 has taken a fork
+12 194 has taken a fork
+12 194 is eating
+14 72 has taken a fork
+14 72 has taken a fork
+14 72 is eating
+15 70 has taken a fork
+15 70 has taken a fork
+15 70 is eating
+15 74 has taken a fork
+15 74 has taken a fork
+15 74 is eating
+15 76 has taken a fork
+15 76 has taken a fork
+15 76 is eating
+15 78 has taken a fork
+15 78 has taken a fork
+15 78 is eating
+15 80 has taken a fork
+15 80 has taken a fork
+15 80 is eating
+15 82 has taken a fork
+15 82 has taken a fork
+15 82 is eating
+15 84 has taken a fork
+15 84 has taken a fork
+15 84 is eating
+15 86 has taken a fork
+15 86 has taken a fork
+15 86 is eating
+15 88 has taken a fork
+15 88 has taken a fork
+15 88 is eating
+15 90 has taken a fork
+15 90 has taken a fork
+15 90 is eating
+15 92 has taken a fork
+15 92 has taken a fork
+15 92 is eating
+15 94 has taken a fork
+15 94 has taken a fork
+15 94 is eating
+15 96 has taken a fork
+15 96 has taken a fork
+15 96 is eating
+15 98 has taken a fork
+15 98 has taken a fork
+15 98 is eating
+15 100 has taken a fork
+15 100 has taken a fork
+15 100 is eating
+15 102 has taken a fork
+15 102 has taken a fork
+15 102 is eating
+15 104 has taken a fork
+15 104 has taken a fork
+15 104 is eating
+15 106 has taken a fork
+15 106 has taken a fork
+15 106 is eating
+15 108 has taken a fork
+15 108 has taken a fork
+15 108 is eating
+15 110 has taken a fork
+15 110 has taken a fork
+15 110 is eating
+15 112 has taken a fork
+15 112 has taken a fork
+15 112 is eating
+15 116 has taken a fork
+15 116 has taken a fork
+15 116 is eating
+15 128 has taken a fork
+15 128 has taken a fork
+15 128 is eating
+15 132 has taken a fork
+15 132 has taken a fork
+15 132 is eating
+15 140 has taken a fork
+15 140 has taken a fork
+15 140 is eating
+15 154 has taken a fork
+15 154 has taken a fork
+15 154 is eating
+15 156 has taken a fork
+15 156 has taken a fork
+15 156 is eating
+15 158 has taken a fork
+15 158 has taken a fork
+15 158 is eating
+15 164 has taken a fork
+15 164 has taken a fork
+15 164 is eating
+15 168 has taken a fork
+15 168 has taken a fork
+15 168 is eating
+15 170 has taken a fork
+15 170 has taken a fork
+15 170 is eating
+15 178 has taken a fork
+15 178 has taken a fork
+15 178 is eating
+16 180 has taken a fork
+16 180 has taken a fork
+16 180 is eating
+16 182 has taken a fork
+16 182 has taken a fork
+16 182 is eating
+60 2 died
