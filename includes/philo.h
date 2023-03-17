@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/16 18:29:08 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:18:00 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,39 @@
 #include <string.h>
 #include <pthread.h>
 #include <sys/time.h>
+#include <limits.h>
 
 /*---------------------STRUCT------------------------------------------------*/
 
 typedef struct s_thread
 {
-    int     index;
-    char    *val_c;
-	time_t	ate;
-	int		died;
-	int		num_philo;
-	int		t_die;
-	int		t_eat;
-	int		t_sleep;
+    int     		index;
+    char    		*val_c;
+	time_t			ate;
+	int				died;
+	int				count;
+	long			num_philo;
+	long			t_die;
+	long			t_eat;
+	long			t_sleep;
+	pthread_mutex_t	mut_count;
     pthread_mutex_t fork;
 	pthread_mutex_t	mut_ate;
 	struct s_data	*data;
-	void	*next;
-	void	*prev;
+	void			*next;
+	void			*prev;
 }               t_philo;
 
 typedef struct s_data
 {
 	pthread_mutex_t	mut_print;
-	t_philo			*philo_died;
-	time_t			t_die;
+	pthread_mutex_t	mut_time;
 	// pthread_mutex_t	mut_ate;
+	pthread_t		*philosophers;
+	time_t			time;
+	time_t			t_die;
+	int				eats_time;
+	t_philo			*philo_died;
 	t_philo			*philo;
 }				t_data;
 
@@ -62,10 +69,13 @@ int	calc_eat(struct timeval time, int ate);
 int	dies(t_data *data);
 /*---------------------UTILS-------------------------------------------------*/
 
-int		ft_atoi(const char *nptr);
+long	ft_atol(char *str);
 char	*ft_itoa(int n);
 void	ft_putstr_fd(char *s, int fd);
 time_t	timer(void);
+int		ft_strlen(const char *str);
+int		numlen(long long int num);
+int		is_numeric(char *str);
 /*---UTILS LIST---*/
 void    lst_addback(t_philo **philo, t_philo *new);
 t_philo	*lst_new(char **av, int i, t_data *data);
@@ -75,6 +85,9 @@ void	locker(t_philo *philo, t_philo *prev);
 void	unlocker(t_philo *philo, t_philo *prev);
 /*----UTILS ROUTINE-----*/
 void	first_philo(t_philo *philo, t_philo *last);
+void	one_philo(t_philo *philo);
 void	other_philo(t_philo *philo, t_philo *prev);
-
+/*---------------------FREE-----------------------------------------------*/
+void	free_data(t_data *data);
+void	free_philo(t_philo *philo);
 #endif

@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/16 18:49:22 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:51:56 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void    *routine(void *arg)
 		usleep(philo->t_eat / 2);
 	while (1)
 	{
-		tfork(philo);
-		if (philo->index == 1)
+		if (philo->index == 1 && philo->num_philo > 1)
 			first_philo(philo, last);
+		else if (philo->index == 1 && philo->num_philo == 1)
+			one_philo(philo);
 		else
 			other_philo(philo, prev);
-        thinking(philo);
+		if (philo->num_philo > 1)
+        	thinking(philo);
 	}
     return (NULL);
 }
@@ -41,7 +43,7 @@ void	*start_checker(void *arg)
 	t_data	*data;
 	
 	data = (t_data *)arg;
-	// usleep(1000);
+	usleep(1000000);
 	while (1)
 	{
 		if (dies(data))
@@ -51,6 +53,8 @@ void	*start_checker(void *arg)
 			printf("%s died\n", data->philo_died->val_c);
 			// pthread_mutex_unlock(&data->philo_died->fork);
 			// pthread_mutex_unlock(&data->mut_print);
+			// free_data(data);
+			// free_philo(data->philo);
 			exit (0);
 		}
 	}

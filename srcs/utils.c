@@ -6,32 +6,37 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:44:24 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/16 17:07:32 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/17 14:09:52 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(char *str)
 {
-	int	i;
-	int	neg;
-	int	result;
+	int		i;
+	long	res;
+	int		sign;
 
 	i = 0;
-	neg = 1;
-	result = 0;
-	while (nptr[i] && (nptr[i] == ' ' || (nptr[i] >= 7 && nptr[i] <= 13)))
+	sign = 1;
+	res = 0;
+	while ((str[i] > 9 && str[i] < 13) || (str[i] == ' '))
 		i++;
-	if (nptr[i] && (nptr[i] == '+' || nptr[i] == '-'))
+	while (str[i] == '+' || str[i] == '-')
 	{
-		if (nptr[i] == '-')
-			neg *= -1;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	while (nptr[i] && (nptr[i] >= '0' && nptr[i] <= '9'))
-		result = result * 10 + (nptr[i++] - '0');
-	return (result * neg);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - 48);
+		if (res * sign < -2147483648 || res * sign > 2147483647)
+			return (-1);
+		i++;
+	}
+	return (res * sign);
 }
 
 void	ft_putstr_fd(char *s, int fd)
