@@ -6,23 +6,24 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:18:50 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/17 15:31:04 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 00:42:56 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_data(t_data *data)
+void free_data(t_data *data)
 {
 	if (data)
 	{
 		pthread_mutex_destroy(&data->mut_print);
 		pthread_mutex_destroy(&data->mut_time);
+		pthread_mutex_destroy(&data->mut_end);
 		free(data);
 	}
 }
 
-void	free_philo(t_philo *philo)
+void free_philo(t_philo *philo)
 {
 	t_philo *temp;
 
@@ -38,4 +39,28 @@ void	free_philo(t_philo *philo)
 		free(philo);
 		philo = temp;
 	}
+}
+
+void	free_philos(pthread_t	*philosophers)
+{
+	if (philosophers)
+		free(philosophers);
+}
+void	check_locks(t_data *data)
+{
+	t_philo *philo;
+
+	philo = data->philo;
+	while (philo)
+	{
+		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&philo->mut_count);
+        pthread_mutex_lock(&philo->mut_ate);
+		pthread_mutex_unlock(&philo->mut_ate);
+		pthread_mutex_unlock(&philo->mut_count);
+		pthread_mutex_unlock(&philo->fork);
+		philo = philo->next;
+	}
+	pthread_mutex_lock(&data->mut_print);
+	pthread_mutex_unlock(&data->mut_print);
 }

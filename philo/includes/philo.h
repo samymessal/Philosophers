@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/17 18:18:00 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 00:42:09 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ typedef struct s_thread
 typedef struct s_data
 {
 	pthread_mutex_t	mut_print;
+	pthread_mutex_t	mut_end;
 	pthread_mutex_t	mut_time;
-	// pthread_mutex_t	mut_ate;
+	int				end;
 	pthread_t		*philosophers;
 	time_t			time;
 	time_t			t_die;
@@ -90,4 +91,6 @@ void	other_philo(t_philo *philo, t_philo *prev);
 /*---------------------FREE-----------------------------------------------*/
 void	free_data(t_data *data);
 void	free_philo(t_philo *philo);
+void	check_locks(t_data *data);
+void	free_philos(pthread_t	*philosophers);
 #endif

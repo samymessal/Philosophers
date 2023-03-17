@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/17 22:30:54 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 00:41:47 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ t_data	*init_data(void)
 	if (!data)
 		return (NULL);
 	data->philo = NULL;
+	data->end = 0;
 	data->t_die = 0;
 	data->time = 0;
 	data->eats_time = 0;
 	data->philosophers = NULL;
 	data->time = timer();
 	pthread_mutex_init(&data->mut_print, NULL);
+	pthread_mutex_init(&data->mut_end, NULL);
 	pthread_mutex_init(&data->mut_time, NULL);
-	// pthread_mutex_init(&data->mut_ate, NULL);
 	return (data);	
 }
 
@@ -100,15 +101,22 @@ int main(int ac, char **av)
 		i++;
     }
 	if (dies(data))
+	{
+		i = 0;
+		while (i < num_philo)
+		{
+			pthread_join(philosophers[i], NULL);
+			i++;
+			// if (i == num_philo)
+			// 	pthread_join(checker, NULL);
+		}
+		usleep(data->philo->t_die);
+		check_locks(data);
+		free_philo(data->philo);
+		free_data(data);
+		free_philos(philosophers);
 		return (1);
+	}
 	// pthread_create(&checker, NULL, &start_checker, &(*data));
-    i = 0;
-    while (i < num_philo)
-    {
-		pthread_join(philosophers[i], NULL);
-		i++;
-		// if (i == num_philo)
-		// 	pthread_join(checker, NULL);
-    }
     return (0);
 }
