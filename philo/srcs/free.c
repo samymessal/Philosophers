@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:18:50 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 00:42:56 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 15:37:44 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ void	check_locks(t_data *data)
 	}
 	pthread_mutex_lock(&data->mut_print);
 	pthread_mutex_unlock(&data->mut_print);
+}
+
+void	free_all(t_data *data, pthread_t *philosophers)
+{
+	check_locks(data);
+	free_philo(data->philo);
+	free_data(data);
+	free_philos(philosophers);
 }

@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:08 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/17 15:09:50 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 16:15:14 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ int	numlen(long long int num)
 		return (20);
 	if (num < 0)
 	{
-		i++;
-		num *= -1;
+		return (-1);
 	}
+	if (num == 0)
+		return (1);
 	while (num > 0)
 	{
 		num /= 10;

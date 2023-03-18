@@ -6,26 +6,41 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 00:26:18 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:28:59 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    *routine(void *arg)
+int	conditions_routine(t_philo *philo, t_philo *last, t_philo *prev)
 {
-    t_philo *philo;
+	
+	if (philo->num_philo == 3)
+		three_philos(philo);
+	else if (philo->index == 1 && philo->num_philo > 1)
+		first_philo(philo, last);
+	else if (philo->index == 1 && philo->num_philo == 1)
+	{
+		one_philo(philo);
+		return (0);
+	}
+	else
+		other_philo(philo, prev);
+	return (1);
+}
+
+void	*routine(void *arg)
+{
+	t_philo	*philo;
 	t_philo	*last;
 	t_philo	*prev;
 	int		end;
 
 	philo = (t_philo *)arg;
-    last = lst_last(philo);
+	last = lst_last(philo);
 	prev = philo->prev;
-	end = 0;
-	/*Est-ce vrmnt necessaire de sleep ?*/
 	if (philo->index % 2 == 0 && philo->num_philo > 1)
-		usleep(philo->t_die / 2);
+		usleep(philo->t_eat - philo->t_sleep);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->mut_end);
@@ -33,40 +48,15 @@ void    *routine(void *arg)
 		pthread_mutex_unlock(&philo->data->mut_end);
 		if (end)
 			return (NULL);
-		if (philo->index == 1 && philo->num_philo > 1)
-			first_philo(philo, last);
-		else if (philo->index == 1 && philo->num_philo == 1)
-		{
-			one_philo(philo);
+		if (!conditions_routine(philo, last, prev))
 			return (NULL);
-		}
-		else
-			other_philo(philo, prev);
 		if (philo->num_philo > 1)
-        	thinking(philo);
-	}
-    return (NULL);
-}
-
-void	*start_checker(void *arg)
-{
-	t_data	*data;
-	
-	data = (t_data *)arg;
-	usleep(1000000);
-	while (1)
-	{
-		if (dies(data))
 		{
-			pthread_mutex_lock(&data->mut_print);
-			// pthread_mutex_lock(&data->philo_died->fork);
-			printf("%s died\n", data->philo_died->val_c);
-			// pthread_mutex_unlock(&data->philo_died->fork);
-			// pthread_mutex_unlock(&data->mut_print);
-			// free_data(data);
-			// free_philo(data->philo);
-			exit (0);
+			thinking(philo);
+			// usleep(philo->t_eat - philo->t_sleep);
 		}
+		if (philo->times_eat == philo->count)
+			return (NULL);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 00:42:09 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:26:17 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_thread
     char    		*val_c;
 	time_t			ate;
 	int				died;
-	int				count;
+	long			count;
+	long			times_eat;
 	long			num_philo;
 	long			t_die;
 	long			t_eat;
@@ -48,14 +49,19 @@ typedef struct s_data
 	pthread_mutex_t	mut_end;
 	pthread_mutex_t	mut_time;
 	int				end;
+	long			num_philo;
 	pthread_t		*philosophers;
 	time_t			time;
 	time_t			t_die;
-	int				eats_time;
+	long			eats_time;
 	t_philo			*philo_died;
 	t_philo			*philo;
 }				t_data;
 
+/*--------------------INIT-----------------------------------------------*/
+t_philo	*init_philo(char **av, t_data *data);
+t_data	*init_data(void);
+void	init_data2(char **av, t_data **data, t_philo *philo);
 /*---------------------ROUTINE-----------------------------------------------*/
 void    *routine(void *arg);
 void	*start_checker(void *arg);
@@ -88,9 +94,11 @@ void	unlocker(t_philo *philo, t_philo *prev);
 void	first_philo(t_philo *philo, t_philo *last);
 void	one_philo(t_philo *philo);
 void	other_philo(t_philo *philo, t_philo *prev);
+void	three_philos(t_philo *philo);
 /*---------------------FREE-----------------------------------------------*/
 void	free_data(t_data *data);
 void	free_philo(t_philo *philo);
 void	check_locks(t_data *data);
 void	free_philos(pthread_t	*philosophers);
+void	free_all(t_data *data, pthread_t *philosophers);
 #endif
