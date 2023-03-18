@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 18:26:17 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 21:54:33 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data
 	pthread_mutex_t	mut_print;
 	pthread_mutex_t	mut_end;
 	pthread_mutex_t	mut_time;
+	pthread_mutex_t	mut_eat3;
 	int				end;
 	long			num_philo;
 	pthread_t		*philosophers;

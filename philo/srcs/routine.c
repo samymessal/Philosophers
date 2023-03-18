@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 18:28:59 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/18 23:17:42 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	conditions_routine(t_philo *philo, t_philo *last, t_philo *prev)
 {
 	
 	if (philo->num_philo == 3)
+	{
 		three_philos(philo);
+	}
 	else if (philo->index == 1 && philo->num_philo > 1)
 		first_philo(philo, last);
 	else if (philo->index == 1 && philo->num_philo == 1)
@@ -43,6 +45,7 @@ void	*routine(void *arg)
 		usleep(philo->t_eat - philo->t_sleep);
 	while (1)
 	{
+		// printf("index: %d test\n", philo->index);
 		pthread_mutex_lock(&philo->data->mut_end);
 		end = philo->data->end;
 		pthread_mutex_unlock(&philo->data->mut_end);
