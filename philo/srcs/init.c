@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:40:59 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 22:59:00 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:19:02 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_data	*init_data(void)
 	pthread_mutex_init(&data->mut_print, NULL);
 	pthread_mutex_init(&data->mut_end, NULL);
 	pthread_mutex_init(&data->mut_time, NULL);
-	// pthread_mutex_init(&data->mut_eat3, NULL);
 	return (data);
 }
 

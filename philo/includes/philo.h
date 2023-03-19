@@ -6,27 +6,27 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 21:54:33 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:31:51 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <limits.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <limits.h>
 
 /*---------------------STRUCT------------------------------------------------*/
 
 typedef struct s_thread
 {
-    int     		index;
-    char    		*val_c;
+	int				index;
+	char			*val_c;
 	time_t			ate;
 	int				died;
 	long			count;
@@ -36,19 +36,18 @@ typedef struct s_thread
 	long			t_eat;
 	long			t_sleep;
 	pthread_mutex_t	mut_count;
-    pthread_mutex_t fork;
+	pthread_mutex_t	fork;
 	pthread_mutex_t	mut_ate;
 	struct s_data	*data;
 	void			*next;
 	void			*prev;
-}               t_philo;
+}				t_philo;
 
 typedef struct s_data
 {
 	pthread_mutex_t	mut_print;
 	pthread_mutex_t	mut_end;
 	pthread_mutex_t	mut_time;
-	pthread_mutex_t	mut_eat3;
 	int				end;
 	long			num_philo;
 	pthread_t		*philosophers;
@@ -64,17 +63,17 @@ t_philo	*init_philo(char **av, t_data *data);
 t_data	*init_data(void);
 void	init_data2(char **av, t_data **data, t_philo *philo);
 /*---------------------ROUTINE-----------------------------------------------*/
-void    *routine(void *arg);
+void	*routine(void *arg);
 void	*start_checker(void *arg);
 /*---------------------ACTIONS-----------------------------------------------*/
-void    tfork(t_philo *philo);
-void    eat(t_philo *philo);
-void    sleeping(t_philo *philo);
-void    thinking(t_philo *philo);
+void	tfork(t_philo *philo);
+void	eat(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 /*----------------------CHECKER----------------------------------------------*/
-int philo_ate(void);
-int	calc_eat(struct timeval time, int ate);
-int	dies(t_data *data);
+int		philo_ate(void);
+int		calc_eat(struct timeval time, int ate);
+int		dies(t_data *data);
 /*---------------------UTILS-------------------------------------------------*/
 
 long	ft_atol(char *str);
@@ -85,7 +84,7 @@ int		ft_strlen(const char *str);
 int		numlen(long long int num);
 int		is_numeric(char *str);
 /*---UTILS LIST---*/
-void    lst_addback(t_philo **philo, t_philo *new);
+void	lst_addback(t_philo **philo, t_philo *new);
 t_philo	*lst_new(char **av, int i, t_data *data);
 t_philo	*lst_last(t_philo *philo);
 /*----UTILS MUTEX-------*/
@@ -96,6 +95,10 @@ void	first_philo(t_philo *philo, t_philo *last);
 void	one_philo(t_philo *philo);
 void	other_philo(t_philo *philo, t_philo *prev);
 void	three_philos(t_philo *philo);
+void	index_1(t_philo *philo);
+void	index_2(t_philo *philo);
+void	index_3(t_philo *philo);
+
 /*---------------------FREE-----------------------------------------------*/
 void	free_data(t_data *data);
 void	free_philo(t_philo *philo);

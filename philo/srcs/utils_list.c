@@ -6,23 +6,23 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 22:04:59 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 18:06:37 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 12:27:48 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    lst_addback(t_philo **philo, t_philo *new)
+void	lst_addback(t_philo **philo, t_philo *new)
 {
-    t_philo	*temp;
+	t_philo	*temp;
 
-    temp = *philo;
-    if (!(*philo))
-    {
-        *philo = new;
-        return ;
-    }
-    while (temp->next)
+	temp = *philo;
+	if (!(*philo))
+	{
+		*philo = new;
+		return ;
+	}
+	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
 	new->prev = temp;
