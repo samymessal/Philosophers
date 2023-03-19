@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 12:51:47 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/19 12:31:51 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:44:09 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_thread
 	long			count;
 	long			times_eat;
 	long			num_philo;
-	long			t_die;
-	long			t_eat;
-	long			t_sleep;
+	time_t			t_die;
+	time_t			t_eat;
+	time_t			t_sleep;
 	pthread_mutex_t	mut_count;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	mut_ate;
@@ -83,6 +83,7 @@ time_t	timer(void);
 int		ft_strlen(const char *str);
 int		numlen(long long int num);
 int		is_numeric(char *str);
+int		usleep_me(time_t rest);
 /*---UTILS LIST---*/
 void	lst_addback(t_philo **philo, t_philo *new);
 t_philo	*lst_new(char **av, int i, t_data *data);

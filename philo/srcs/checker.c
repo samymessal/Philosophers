@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:39:50 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/19 12:16:44 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 15:11:38 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	dies(t_data *data)
 		philo = philo->next;
 		if (reinit_boucle(data, &count, &philo))
 			return (1);
+		usleep_me(1000);
 	}
 	return (0);
 }

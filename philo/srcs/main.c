@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 02:41:37 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/18 23:13:53 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:44:26 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int	thread_creat(pthread_t *philosophers, t_data *data)
 		philo = philo->next;
 		i++;
 	}
+	i = 0;
 	if (dies(data))
 	{
-		i = 0;
 		while (i < data->num_philo)
 		{
 			pthread_join(philosophers[i], NULL);
 			i++;
 		}
-		usleep(data->philo->t_die);
+		usleep_me(data->philo->t_die);
 		free_all(data, philosophers);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: smessal <smessal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:38:54 by smessal           #+#    #+#             */
-/*   Updated: 2023/03/19 12:25:56 by smessal          ###   ########.fr       */
+/*   Updated: 2023/03/19 15:12:09 by smessal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,18 @@ int	conditions_routine(t_philo *philo, t_philo *last, t_philo *prev)
 
 void	think_and3(t_philo *philo)
 {
+	time_t	time;
+
+	time = philo->t_eat - philo->t_sleep;
+	if (time < 0)
+		time = philo->t_eat;
 	if (philo->num_philo > 1)
 	{
 		thinking(philo);
 		if (philo->num_philo == 3)
-			usleep(philo->t_eat);
+			usleep_me(philo->t_eat);
+		else if (philo->index % 2 != 0)
+			usleep_me(1000);
 	}
 }
 
@@ -47,7 +54,7 @@ void	*routine(void *arg)
 	last = lst_last(philo);
 	prev = philo->prev;
 	if (philo->index % 2 == 0 && philo->num_philo > 1)
-		usleep(philo->t_die / 3);
+		usleep_me(philo->t_die / 3);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->mut_end);
